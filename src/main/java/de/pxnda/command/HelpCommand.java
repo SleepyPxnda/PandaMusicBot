@@ -25,6 +25,8 @@ public class HelpCommand implements ICommand {
         embed.addField("queue", "Shows the current Songqueue", true);
         embed.addField("np", "Shows the Song currently playing", true);
         embed.addField("help", "Shows this Windows", true);
+        embed.addField("clear", "Clears the entire queue", true);
+        embed.addField("skip", "Skips the current Song ", true);
 
         channel.sendMessage(embed.build()).queue();
 

@@ -32,26 +32,25 @@ public class QueueCommand implements ICommand {
 
         timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
 
-        if(trackQueue.size() >= 2){
+        if(trackQueue.size() > 0){
             embed.addField("-------------------------","Currently Playing", false);
             embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
 
-            for (AudioTrack track : trackQueue) {
-                embed.addField(track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri,false);
-                timeNeededbyTracksBefore += track.getDuration();
+            if(trackQueue.size() > 0) {
+
+                for (AudioTrack track : trackQueue) {
+                    embed.addField(track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, false);
+                    timeNeededbyTracksBefore += track.getDuration();
+                }
+            }
+            else
+            {
+                embed.addField("Nothing","Request Songs, Lets go !", false);
             }
         }
 
-        if(trackQueue.size() == 1)
-        {
-            embed.addField("-------------------------","Currently Playing", false);
-            embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
-            embed.addField("-------------------------", "Following", false);
-            embed.addField("Nothing","Request Songs, Lets go !", false);
-        }
-
-        if(trackQueue.size() == 0){
+        if(trackQueue.size() == 0) {
             embed.addField("Nothing to play", "Queue has nothing in it", false);
         }
 
