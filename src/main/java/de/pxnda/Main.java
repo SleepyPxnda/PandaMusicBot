@@ -17,7 +17,7 @@ public class Main extends ListenerAdapter {
 
     public static List<VoiceChannel> tempChannelList;
     public static PlayerManager playerManager;
-    public static String prefix = "!";
+    public static String prefix = "#";
 
     public static void main(String[]args) {
 

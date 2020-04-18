@@ -26,7 +26,6 @@ public class LeaveCommand implements ICommand {
 
         if(currentChannel != null){
             guild.getAudioManager().closeAudioConnection();
-            message.addReaction("✅").queue();
             Main.playerManager.getGuildMusicManager(guild).player.stopTrack();
         }
         else

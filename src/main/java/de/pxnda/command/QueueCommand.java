@@ -21,14 +21,20 @@ public class QueueCommand implements ICommand {
         this.channel = e.getTextChannel();
     }
 
+    //ToD0: ADjust Structure of this command, quite a mess
     @Override
     public void execute() {
         BlockingQueue<AudioTrack> trackQueue = Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue();
         AudioTrack currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
 
+        EmbedBuilder embed = new EmbedBuilder();
+
+        if(currentTrack == null || trackQueue.size() == 0){
+            embed.addField("Nothing to play", "Queue has nothing in it", false);
+        }
         int timeNeededbyTracksBefore  = 0;
 
-        EmbedBuilder embed = new EmbedBuilder();
+
 
         timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
 
@@ -48,10 +54,6 @@ public class QueueCommand implements ICommand {
             {
                 embed.addField("Nothing","Request Songs, Lets go !", false);
             }
-        }
-
-        if(trackQueue.size() == 0) {
-            embed.addField("Nothing to play", "Queue has nothing in it", false);
         }
 
         embed.setFooter("Time until silence: " + convertToTimeStamp(timeNeededbyTracksBefore));

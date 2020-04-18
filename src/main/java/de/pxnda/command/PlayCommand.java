@@ -36,9 +36,9 @@ public class PlayCommand implements ICommand {
         if(userVoiceChannel != null){
             AudioManager manager = guild.getAudioManager();
             manager.openAudioConnection(userVoiceChannel);
-            message.addReaction("✅").queue();
 
             Main.playerManager.loadAndPlay(textChannel, message.getContentRaw().split(" ")[1], message);
+            message.delete().queueAfter(5, TimeUnit.SECONDS);
 
         }
         else

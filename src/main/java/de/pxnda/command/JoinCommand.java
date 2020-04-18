@@ -26,7 +26,6 @@ public class JoinCommand implements ICommand {
         if(voiceChannel != null){
             AudioManager manager = guild.getAudioManager();
             manager.openAudioConnection(voiceChannel);
-            message.addReaction("✅").queue();
         }
         else
         {

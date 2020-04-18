@@ -51,14 +51,14 @@ public class PlayerManager {
                 channel.sendMessage("Adding to queue " + track.getInfo().title + " - by " + request.getAuthor().getName()).queue();
 
                 play(musicManager, track);
-                request.delete().queueAfter(5, TimeUnit.SECONDS);
+
             }
 
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
 
                 if(playlist.getTracks().size() > 50){
-                    channel.sendMessage("Too many songs in the List");
+                    channel.sendMessage("Too many songs in the List").queue();
                     return;
                 }
 
@@ -67,7 +67,6 @@ public class PlayerManager {
                 }
 
                 channel.sendMessage("Added " + playlist.getTracks().size() + " Songs from Playlist " + playlist.getName() + " to queue - by " + request.getAuthor().getName()).queue();
-                request.delete().queueAfter(5, TimeUnit.SECONDS);
             }
 
             @Override
