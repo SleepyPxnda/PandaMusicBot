@@ -57,7 +57,7 @@ public class PlayerManager {
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
 
-                if(playlist.getTracks().size() > 50){
+                if(playlist.getTracks().size() > 100){
                     channel.sendMessage("Too many songs in the List").queue();
                     return;
                 }

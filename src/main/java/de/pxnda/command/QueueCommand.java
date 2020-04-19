@@ -21,42 +21,57 @@ public class QueueCommand implements ICommand {
         this.channel = e.getTextChannel();
     }
 
-    //ToD0: ADjust Structure of this command, quite a mess
+    //ToDo: ADjust Structure of this command, quite a mess
     @Override
     public void execute() {
         BlockingQueue<AudioTrack> trackQueue = Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue();
         AudioTrack currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
-
-        EmbedBuilder embed = new EmbedBuilder();
-
-        if(currentTrack == null || trackQueue.size() == 0){
-            embed.addField("Nothing to play", "Queue has nothing in it", false);
-        }
         int timeNeededbyTracksBefore  = 0;
-
-
-
+        EmbedBuilder embed = new EmbedBuilder();
         timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
+        int maxQueueShown = 25;
 
-        if(trackQueue.size() > 0){
-            embed.addField("-------------------------","Currently Playing", false);
+        if(trackQueue.size() > 1){
+
+            int maxlength = Math.min(trackQueue.size(), maxQueueShown);
+
+
+            embed.addField("-------------------------", "Currently Playing", false);
             embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
 
-            if(trackQueue.size() > 0) {
+            int i = 0;
 
-                for (AudioTrack track : trackQueue) {
-                    embed.addField(track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, false);
-                    timeNeededbyTracksBefore += track.getDuration();
+            for (AudioTrack track : trackQueue) {
+                if(i > maxlength){
+                    break;
                 }
-            }
-            else
-            {
-                embed.addField("Nothing","Request Songs, Lets go !", false);
+                embed.addField(track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, false);
+                timeNeededbyTracksBefore += track.getDuration();
+                i++;
             }
         }
 
-        embed.setFooter("Time until silence: " + convertToTimeStamp(timeNeededbyTracksBefore));
+        if(trackQueue.size() == 1)
+        {
+            embed.addField("-------------------------","Currently Playing", false);
+            embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
+            embed.addField("-------------------------", "Following", false);
+            embed.addField("Nothing","Request Songs, Lets go !", false);
+        }
+
+        if(trackQueue.size() == 0){
+            embed.addField("Nothing to play", "Queue has nothing in it", false);
+        }
+
+        if(trackQueue.size() > maxQueueShown){
+            embed.setFooter("Time until silence: " + convertToTimeStamp(timeNeededbyTracksBefore) + " | " + (trackQueue.size() - maxQueueShown) + " Songs not listed");
+        }
+        else
+        {
+            embed.setFooter("Time until silence: " + convertToTimeStamp(timeNeededbyTracksBefore));
+        }
+
         channel.sendMessage(embed.build()).queue();
     }
 
