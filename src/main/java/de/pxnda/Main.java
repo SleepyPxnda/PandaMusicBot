@@ -17,7 +17,7 @@ public class Main extends ListenerAdapter {
 
     public static List<VoiceChannel> tempChannelList;
     public static PlayerManager playerManager;
-    public static String prefix = "#";
+    public static String prefix = "*";
 
     public static void main(String[]args) {
 
@@ -54,19 +54,10 @@ public class Main extends ListenerAdapter {
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
 
-/*
-        Role dj = e.getMember().getRoles().stream().filter( role -> role.getName().equals("DJ")).findFirst().orElse(null);
-
-        if(dj == null){
-            e.getChannel().sendMessage("You need the Role DJ to use this Bot").queue();
-            return;
-        }
-*/
-        System.out.println(ts + "| "+  e.getGuild().getName() +" |" + " [" + command +"] issued by " + e.getAuthor().getName() );
-
-
+        System.out.println(ts + " | "+  e.getGuild().getName() +" |" + " [" + command +"] issued by " + e.getAuthor().getName() );
 
         switch (command){
+
             case "join":
                 cmdExecutor = new CommandExecutor(new JoinCommand(e));
                 break;

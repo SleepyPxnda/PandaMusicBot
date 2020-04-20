@@ -5,12 +5,12 @@ import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.TimeUnit;
+
+import static de.pxnda.Utils.UtilFuncs.convertToTimeStamp;
 
 public class QueueCommand implements ICommand {
     private Guild guild;
@@ -70,10 +70,5 @@ public class QueueCommand implements ICommand {
         channel.sendMessage(embed.build()).queue();
     }
 
-    private String convertToTimeStamp(int millis){
-        return String.format("%02d:%02d",
-                TimeUnit.MILLISECONDS.toMinutes(millis),
-                TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))
-        );
-    }
+
 }
