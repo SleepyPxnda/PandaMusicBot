@@ -31,14 +31,16 @@ public class QueueCommand implements ICommand {
         timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
         int maxQueueShown = 25;
 
-        if(trackQueue.size() > 1){
-
-            int maxlength = Math.min(trackQueue.size(), maxQueueShown);
-
-
+        if(currentTrack != null){
             embed.addField("-------------------------", "Currently Playing", false);
             embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
+        }
+
+
+        if(trackQueue.size() > 0){
+
+            int maxlength = Math.min(trackQueue.size(), maxQueueShown);
 
             int i = 0;
 
@@ -52,18 +54,11 @@ public class QueueCommand implements ICommand {
             }
         }
 
-        if(trackQueue.size() == 1)
-        {
-            embed.addField("-------------------------","Currently Playing", false);
-            embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
-            embed.addField("-------------------------", "Following", false);
-            embed.addField("Nothing","Request Songs, Lets go !", false);
-        }
-
         if(trackQueue.size() == 0){
-            embed.addField("Nothing to play", "Queue has nothing in it", false);
+            embed.addField("Nothing to play", "Add More Songs", false);
         }
 
+        //Footer Handler
         if(trackQueue.size() > maxQueueShown){
             embed.setFooter("Time until silence: " + convertToTimeStamp(timeNeededbyTracksBefore) + " | " + (trackQueue.size() - maxQueueShown) + " Songs not listed");
         }

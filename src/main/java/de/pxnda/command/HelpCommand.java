@@ -1,5 +1,6 @@
 package de.pxnda.command;
 
+import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -17,7 +18,7 @@ public class HelpCommand implements ICommand {
     public void execute() {
         EmbedBuilder embed = new EmbedBuilder();
 
-        embed.setAuthor("Pxnda");
+        embed.setAuthor("Botprefix ist [ " + Main.prefix + " ]");
 
         embed.addField("join", "Bot joins your VoiceChannel", true);
         embed.addField("leave", "Bot leaves your VoiceChannel", true);

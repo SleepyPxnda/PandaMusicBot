@@ -29,6 +29,9 @@ public class Main extends ListenerAdapter {
 
         playerManager = new PlayerManager();
         tempChannelList = new ArrayList<>();
+
+
+
     }
 
     @Override
