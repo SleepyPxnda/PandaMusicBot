@@ -28,3 +28,4 @@ dependencies {
 }
 
 compileJava.options.encoding = 'UTF-8'
+mainClassName = "de.pxnda.Main"

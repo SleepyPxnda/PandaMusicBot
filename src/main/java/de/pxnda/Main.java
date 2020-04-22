@@ -19,7 +19,9 @@ public class Main extends ListenerAdapter {
     public static PlayerManager playerManager;
     public static String prefix = "*";
 
-    public static void main(String[]args) {
+    //ToDo: Replace all Messages with Embed
+
+    public static void main(String[] args) {
 
         try {
             new JDABuilder("Njk1MzQ3NTI0ODM1MzQ0NDA0.XpMmlw.ck4FgKN8jYsVaxjiwWTe5iQ-Ewg").addEventListeners(new Main()).build();
@@ -30,13 +32,12 @@ public class Main extends ListenerAdapter {
         playerManager = new PlayerManager();
         tempChannelList = new ArrayList<>();
 
-
-
+        System.out.println("Bot started with prefix " + prefix);
     }
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent e){
-        if(e.getAuthor().isBot()) return;
+    public void onMessageReceived(MessageReceivedEvent e) {
+        if (e.getAuthor().isBot()) return;
 
         CommandExecutor cmdExecutor;
 
@@ -46,7 +47,7 @@ public class Main extends ListenerAdapter {
         List<String> contents = Arrays.asList(rawContent.split(" "));
         String command = contents.get(0).substring(1);
 
-        if(!rawContent.startsWith(prefix)){
+        if (!rawContent.startsWith(prefix)) {
             return;
         }
 
@@ -54,9 +55,9 @@ public class Main extends ListenerAdapter {
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
 
-        System.out.println(ts + " | "+  e.getGuild().getName() +" |" + " [" + command +"] issued by " + e.getAuthor().getName() );
+        System.out.println(ts + " | " + e.getGuild().getName() + " |" + " [" + command + "] issued by " + e.getAuthor().getName());
 
-        switch (command){
+        switch (command) {
 
             case "join":
                 cmdExecutor = new CommandExecutor(new JoinCommand(e));
@@ -79,6 +80,9 @@ public class Main extends ListenerAdapter {
             case "clear":
                 cmdExecutor = new CommandExecutor(new ClearCommand(e));
                 break;
+            case "forward":
+                cmdExecutor = new CommandExecutor(new ForwardCommand(e, contents.get(1)));
+                break;
             case "help":
             default:
                 cmdExecutor = new CommandExecutor(new HelpCommand(e));
@@ -88,7 +92,7 @@ public class Main extends ListenerAdapter {
 
     //Event welches bei einem Voicechannel join gefeuert wird wenn man davor in KEINEM Channel ist
     @Override
-    public void onGuildVoiceJoin(GuildVoiceJoinEvent event){
+    public void onGuildVoiceJoin(GuildVoiceJoinEvent event) {
         HandleTempChannelBot(event, event.getGuild());
     }
 
@@ -100,9 +104,8 @@ public class Main extends ListenerAdapter {
 
     //Event welches bei einem Voicechannel leave gefeuert wird, wenn man den Voicechannel verlässt, also via Verbindung trennen, nicht einfach rausgehen
     @Override
-    public void onGuildVoiceLeave(GuildVoiceLeaveEvent event)
-    {
-        if(event != null){
+    public void onGuildVoiceLeave(GuildVoiceLeaveEvent event) {
+        if (event != null) {
             HandleTempChannelBot(event, event.getGuild());
         }
     }

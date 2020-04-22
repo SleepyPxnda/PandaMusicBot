@@ -28,6 +28,7 @@ public class HelpCommand implements ICommand {
         embed.addField("help", "Shows this Windows", true);
         embed.addField("clear", "Clears the entire queue", true);
         embed.addField("skip", "Skips the current Song ", true);
+        embed.addField("forward [zahl]", "Skips the given amount of Songs ", true);
 
         channel.sendMessage(embed.build()).queue();
 

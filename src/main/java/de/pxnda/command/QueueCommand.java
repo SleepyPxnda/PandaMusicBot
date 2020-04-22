@@ -26,14 +26,19 @@ public class QueueCommand implements ICommand {
     public void execute() {
         BlockingQueue<AudioTrack> trackQueue = Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue();
         AudioTrack currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
+
         int timeNeededbyTracksBefore  = 0;
         EmbedBuilder embed = new EmbedBuilder();
         timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
+
+
         int maxQueueShown = 25;
+        int i = 0;
 
         if(currentTrack != null){
+            i = 1;
             embed.addField("-------------------------", "Currently Playing", false);
-            embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
+            embed.addField( i + ": " +currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
         }
 
@@ -42,15 +47,16 @@ public class QueueCommand implements ICommand {
 
             int maxlength = Math.min(trackQueue.size(), maxQueueShown);
 
-            int i = 0;
+
 
             for (AudioTrack track : trackQueue) {
                 if(i > maxlength){
                     break;
                 }
-                embed.addField(track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, false);
-                timeNeededbyTracksBefore += track.getDuration();
                 i++;
+                embed.addField((i) + ": " + track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, false);
+                timeNeededbyTracksBefore += track.getDuration();
+
             }
         }
 
