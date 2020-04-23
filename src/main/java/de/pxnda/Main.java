@@ -134,22 +134,23 @@ public class Main extends ListenerAdapter {
 
         if (event.getChannelJoined() != null) {
 
-        if (event.getChannelLeft() != null) {
-            //Setze die variable channelLeft auf den Channel welcher geleavet wurde
-            VoiceChannel channelLeft = event.getChannelLeft();
+            if (event.getChannelLeft() != null) {
+                //Setze die variable channelLeft auf den Channel welcher geleavet wurde
+                VoiceChannel channelLeft = event.getChannelLeft();
 
-            //Bugprevention falls der aus irgendeinem Grund null wird
-            if (channelLeft == null) return;
+                //Bugprevention falls der aus irgendeinem Grund null wird
+                if (channelLeft == null) return;
 
-            VoiceChannel currentChannel = guild.getSelfMember().getVoiceState().getChannel();
+                VoiceChannel currentChannel = guild.getSelfMember().getVoiceState().getChannel();
 
-            if(currentChannel != null) {
-                if (channelLeft.getIdLong() == currentChannel.getIdLong()) {
-                    if (channelLeft.getMembers().size() == 1) {
-                        if (channelLeft.getMembers().contains(guild.getSelfMember())) {
-                            guild.getAudioManager().closeAudioConnection();
-                            Main.playerManager.getGuildMusicManager(guild).player.stopTrack();
-                            Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().clear();
+                if (currentChannel != null) {
+                    if (channelLeft.getIdLong() == currentChannel.getIdLong()) {
+                        if (channelLeft.getMembers().size() == 1) {
+                            if (channelLeft.getMembers().contains(guild.getSelfMember())) {
+                                guild.getAudioManager().closeAudioConnection();
+                                Main.playerManager.getGuildMusicManager(guild).player.stopTrack();
+                                Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().clear();
+                            }
                         }
                     }
                 }
