@@ -13,10 +13,10 @@ import java.util.concurrent.BlockingQueue;
 
 public class DeleteSongCommand implements ICommand {
 
-    private TextChannel channel;
-    private Guild guild;
-    private String numberToBeSkipped;
-    private BlockingQueue<AudioTrack> trackQueue;
+    private final TextChannel channel;
+    private final Guild guild;
+    private final String numberToBeSkipped;
+    private final BlockingQueue<AudioTrack> trackQueue;
 
     public DeleteSongCommand(MessageReceivedEvent e, String s) {
         this.channel = e.getTextChannel();

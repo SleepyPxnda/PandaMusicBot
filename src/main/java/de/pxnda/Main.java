@@ -133,51 +133,6 @@ public class Main extends ListenerAdapter {
         if (event.getEntity().isFake()) return;
 
         if (event.getChannelJoined() != null) {
-            //Wenn der Channel welcher gejoined wird die ID 698984062387355768L hat
-            if (event.getChannelJoined().getIdLong() == 698984062387355768L) {
-
-                //Speichere Aktuelle Category in currentCat
-                Category currentCat = event.getChannelJoined().getParent();
-
-                //Starte einen neuen Thread, Erklärung zu Threads https://www.dpunkt.de/java/Programmieren_mit_Java/Multithreading/3.html
-                Runnable task = () -> {
-                    //Create den Channel und pausieren den
-                    currentCat.createVoiceChannel("TempChannel: " + event.getEntity().getEffectiveName()).complete();
-
-                    //Initlisierung einer temp Variable für die ChannelId
-                    long tempchannel = 0;
-
-                    //Suche in allen Voicechanneln der Kategorie nach dem einen mit dem gleichen Namen
-                    for (Category temp : guild.getCategories()) {
-                        if (temp.getName().equals("TempBotKategorie")) {
-                            for (VoiceChannel channel : temp.getVoiceChannels()) {
-                                if (channel.getName().equals("TempChannel: " + event.getEntity().getEffectiveName())) {
-                                    //Speichere dann die ID in der temp Variable
-                                    tempchannel = channel.getIdLong();
-                                }
-                            }
-                        }
-                    }
-
-                    //Logging
-                    System.out.println(tempchannel);
-
-                    //falls ein Channel gefunden wurde
-                    if (tempchannel != 0) {
-
-                        //Suche den Channel mit der gefundenen Id
-                        VoiceChannel createdChannel = guild.getVoiceChannelById(tempchannel);
-
-                        //Move den Aktuellen Member in den Channel, nach 2 sekunden
-                        guild.moveVoiceMember(event.getEntity(), createdChannel).queueAfter(2, TimeUnit.SECONDS);
-
-                        //Setze den Voicechannel in die TempListe
-                        tempChannelList.add(createdChannel);
-                    }
-                };
-                task.run();
-            }
-        }
 
         if (event.getChannelLeft() != null) {
             //Setze die variable channelLeft auf den Channel welcher geleavet wurde
@@ -186,14 +141,18 @@ public class Main extends ListenerAdapter {
             //Bugprevention falls der aus irgendeinem Grund null wird
             if (channelLeft == null) return;
 
-            //Falls der Channel in der Liste ist und kein Spieler mehr in dem Channel ist
-            if (tempChannelList.contains(channelLeft) && channelLeft.getMembers().size() == 0) {
+            VoiceChannel currentChannel = guild.getSelfMember().getVoiceState().getChannel();
 
-                //removen den Channel von der Templist
-                tempChannelList.remove(channelLeft);
-
-                //Und lösche den Channel nach ner Sekunde
-                channelLeft.delete().queueAfter(1, TimeUnit.SECONDS);
+            if(currentChannel != null) {
+                if (channelLeft.getIdLong() == currentChannel.getIdLong()) {
+                    if (channelLeft.getMembers().size() == 1) {
+                        if (channelLeft.getMembers().contains(guild.getSelfMember())) {
+                            guild.getAudioManager().closeAudioConnection();
+                            Main.playerManager.getGuildMusicManager(guild).player.stopTrack();
+                            Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().clear();
+                        }
+                    }
+                }
             }
         }
     }

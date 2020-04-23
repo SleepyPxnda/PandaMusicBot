@@ -13,8 +13,8 @@ import java.util.concurrent.BlockingQueue;
 import static de.pxnda.Utils.UtilFuncs.convertToTimeStamp;
 
 public class QueueCommand implements ICommand {
-    private Guild guild;
-    private TextChannel channel;
+    private final Guild guild;
+    private final TextChannel channel;
 
     public QueueCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();

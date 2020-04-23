@@ -11,11 +11,11 @@ import java.util.concurrent.BlockingQueue;
 
 public class ForwardCommand implements ICommand {
 
-    private TextChannel channel;
-    private Guild guild;
-    private String numberToBeSkipped;
+    private final TextChannel channel;
+    private final Guild guild;
+    private final String numberToBeSkipped;
     private AudioTrack currentTrack;
-    private BlockingQueue<AudioTrack> trackQueue;
+    private final BlockingQueue<AudioTrack> trackQueue;
 
     public ForwardCommand(MessageReceivedEvent e, String arg) {
         this.channel = e.getTextChannel();

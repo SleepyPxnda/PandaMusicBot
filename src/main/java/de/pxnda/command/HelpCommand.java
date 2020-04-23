@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class HelpCommand implements ICommand {
 
-    private TextChannel channel;
+    private final TextChannel channel;
 
     public HelpCommand(MessageReceivedEvent e) {
         this.channel = e.getTextChannel();

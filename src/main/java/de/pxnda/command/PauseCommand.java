@@ -9,14 +9,12 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class PauseCommand implements ICommand {
-    private AudioTrack currentTrack;
-    private Guild guild;
-    private GuildMusicManager manager;
-    private TextChannel channel;
+    private final Guild guild;
+    private final GuildMusicManager manager;
+    private final TextChannel channel;
 
     public PauseCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();
-        this.currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
         this.manager = Main.playerManager.getGuildMusicManager(guild);
         this.channel = e.getTextChannel();
     }
@@ -29,6 +27,7 @@ public class PauseCommand implements ICommand {
         else
         {
             manager.player.setPaused(true);
+            channel.sendMessage("I paused the Music for you").queue();
         }
     }
 }

@@ -17,12 +17,12 @@ import net.dv8tion.jda.internal.audio.AudioConnection;
 import java.util.concurrent.TimeUnit;
 
 public class PlayCommand implements ICommand {
-    private Guild guild;
-    private AudioManager audioManager;
-    private VoiceChannel userVoiceChannel;
-    private TextChannel textChannel;
-    private Message message;
-    private GuildMusicManager manager;
+    private final Guild guild;
+    private final AudioManager audioManager;
+    private final VoiceChannel userVoiceChannel;
+    private final TextChannel textChannel;
+    private final Message message;
+    private final GuildMusicManager manager;
 
     public PlayCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();

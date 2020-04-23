@@ -10,14 +10,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ResumeCommand implements ICommand {
 
-    private AudioTrack currentTrack;
-    private Guild guild;
-    private GuildMusicManager manager;
-    private TextChannel channel;
+    private final Guild guild;
+    private final GuildMusicManager manager;
+    private final TextChannel channel;
 
     public ResumeCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();
-        this.currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
         this.manager = Main.playerManager.getGuildMusicManager(guild);
         this.channel = e.getTextChannel();
     }

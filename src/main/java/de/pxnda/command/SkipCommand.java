@@ -11,8 +11,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class SkipCommand implements ICommand {
 
-    private TextChannel channel;
-    private Guild guild;
+    private final TextChannel channel;
+    private final Guild guild;
 
     public SkipCommand(MessageReceivedEvent e) {
         this.channel = e.getTextChannel();

@@ -4,7 +4,6 @@ package de.pxnda.command;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
-import de.pxnda.Utils.UtilFuncs;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
@@ -14,8 +13,8 @@ import static de.pxnda.Utils.UtilFuncs.convertToTimeStamp;
 
 public class NowPlayingCommand implements ICommand {
 
-    private Guild guild;
-    private TextChannel channel;
+    private final Guild guild;
+    private final TextChannel channel;
 
     public NowPlayingCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();

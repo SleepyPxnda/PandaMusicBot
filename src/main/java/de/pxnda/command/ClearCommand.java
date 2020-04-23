@@ -12,9 +12,9 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 public class ClearCommand implements ICommand {
 
-    private Member member;
-    private Guild guild;
-    private TextChannel channel;
+    private final Member member;
+    private final Guild guild;
+    private final TextChannel channel;
 
     public ClearCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();
