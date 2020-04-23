@@ -33,7 +33,7 @@ public class ForwardCommand implements ICommand {
             if (number <= trackQueue.size()) {
                 for (int i = 0; i < number; i++) {
                     currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
-                    channel.sendMessage("Skipped Current Track: " + currentTrack.getInfo().title).queue();
+                    channel.sendMessage("I skipped the current Track: " + currentTrack.getInfo().title).queue();
                     Main.playerManager.getGuildMusicManager(guild).scheduler.nextTrack();
                 }
             } else {
@@ -42,7 +42,7 @@ public class ForwardCommand implements ICommand {
             }
         }
         else {
-            channel.sendMessage("Nothing to be forwarded").queue();
+            channel.sendMessage("I can't forward to that non-existing Song ").queue();
         }
     }
 }

@@ -89,6 +89,12 @@ public class Main extends ListenerAdapter {
             case "delete":
                 cmdExecutor = new CommandExecutor(new DeleteSongCommand(e, contents.get(1)));
                 break;
+            case "pause":
+                cmdExecutor = new CommandExecutor(new PauseCommand(e));
+                break;
+            case "resume":
+                cmdExecutor = new CommandExecutor(new ResumeCommand(e));
+                break;
             case "help":
             default:
                 cmdExecutor = new CommandExecutor(new HelpCommand(e));

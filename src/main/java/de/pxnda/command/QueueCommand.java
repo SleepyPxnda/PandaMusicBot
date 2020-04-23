@@ -61,7 +61,7 @@ public class QueueCommand implements ICommand {
         }
 
         if(trackQueue.size() == 0){
-            embed.addField("Nothing to play", "Add More Songs", false);
+            embed.addField("Nothing to play", "I fell empty - Queue", false);
         }
 
         //Footer Handler

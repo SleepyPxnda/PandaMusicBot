@@ -22,6 +22,7 @@ public class PlayCommand implements ICommand {
     private VoiceChannel userVoiceChannel;
     private TextChannel textChannel;
     private Message message;
+    private GuildMusicManager manager;
 
     public PlayCommand(MessageReceivedEvent e) {
         this.guild = e.getGuild();
@@ -29,13 +30,19 @@ public class PlayCommand implements ICommand {
         userVoiceChannel = e.getMember().getVoiceState().getChannel();
         textChannel = e.getTextChannel();
         message = e.getMessage();
+        this.manager = Main.playerManager.getGuildMusicManager(guild);
     }
 
     @Override
     public void execute() {
         if(userVoiceChannel != null){
-            AudioManager manager = guild.getAudioManager();
-            manager.openAudioConnection(userVoiceChannel);
+
+            if(manager.player.isPaused()){
+                manager.player.setPaused(false);
+                textChannel.sendMessage("I got paused, so I resumed to play");
+            }
+
+            audioManager.openAudioConnection(userVoiceChannel);
 
             Main.playerManager.loadAndPlay(textChannel, message.getContentRaw().split(" ")[1], message);
             message.delete().queueAfter(5, TimeUnit.SECONDS);

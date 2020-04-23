@@ -31,7 +31,7 @@ public class LeaveCommand implements ICommand {
         }
         else
         {
-            channel.sendMessage("Im not in a Voice Channel").queue();
+            channel.sendMessage("I'm not in a Voice Channel").queue();
         }
     }
 }

@@ -29,7 +29,7 @@ public class JoinCommand implements ICommand {
         }
         else
         {
-            textChannel.sendMessage("You need to be in a Voicechannel to use this").queue();
+            textChannel.sendMessage("I can't find you in any Voicechannel, so i couldn't join you").queue();
         }
     }
 }

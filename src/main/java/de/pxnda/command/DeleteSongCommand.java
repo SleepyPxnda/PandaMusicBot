@@ -31,12 +31,12 @@ public class DeleteSongCommand implements ICommand {
         int index = number - 2;
 
         if(index > trackQueue.size()) {
-            channel.sendMessage("That Index is not used in the Queue").queue();
+            channel.sendMessage("My Queue doesnt contain anything at that Index").queue();
             return;
         }
 
         if(index < 0){
-            channel.sendMessage("Number is under 0").queue();
+            channel.sendMessage("I'm sorry but that number is too small :D").queue();
             return;
         }
 
@@ -47,10 +47,10 @@ public class DeleteSongCommand implements ICommand {
             Boolean success = trackQueue.remove(tobeDeleted);
 
             if(success){
-                channel.sendMessage("Deleted: " + tobeDeleted.getInfo().title + " from Queue at position " + number).queue();
+                channel.sendMessage(" I deleted " + tobeDeleted.getInfo().title + " from my Queue at position " + number).queue();
             }else
             {
-                channel.sendMessage("Something went wrong deleting Song at Number: " + number + " Index:" + index).queue();
+                channel.sendMessage("Something went wrong while I tried to delete Song at Number: " + number + " Index:" + index).queue();
             }
         }
     }
