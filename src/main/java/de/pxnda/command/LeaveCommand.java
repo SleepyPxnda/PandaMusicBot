@@ -11,7 +11,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 public class LeaveCommand implements ICommand {
 
     private final Guild guild;
-    private final TextChannel channel;;
+    private final TextChannel channel;
 
     public LeaveCommand(MessageReceivedEvent event){
         this.guild = event.getGuild();

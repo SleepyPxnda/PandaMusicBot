@@ -27,8 +27,8 @@ public class DeleteSongCommand implements ICommand {
 
     @Override
     public void execute() {
-        int number = Integer.parseInt(numberToBeSkipped) - 2;
-        int index = number - 2;
+        int number = Integer.parseInt(numberToBeSkipped);
+        int index = number - 1;
 
         if(index > trackQueue.size()) {
             channel.sendMessage("My Queue doesnt contain anything at that Index").queue();

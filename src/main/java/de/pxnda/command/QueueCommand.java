@@ -29,16 +29,16 @@ public class QueueCommand implements ICommand {
 
         int timeNeededbyTracksBefore  = 0;
         EmbedBuilder embed = new EmbedBuilder();
-        timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
+
 
 
         int maxQueueShown = 25;
         int i = 0;
 
         if(currentTrack != null){
-            i = 1;
+            timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
             embed.addField("-------------------------", "Currently Playing", false);
-            embed.addField( i + ": " +currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
+            embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
         }
 
@@ -50,7 +50,7 @@ public class QueueCommand implements ICommand {
 
 
             for (AudioTrack track : trackQueue) {
-                if(i > maxlength){
+                if(i >= maxlength){
                     break;
                 }
                 i++;
