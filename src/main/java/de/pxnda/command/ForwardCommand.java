@@ -27,7 +27,7 @@ public class ForwardCommand implements ICommand {
 
     @Override
     public void execute() {
-        Integer number = Integer.valueOf(numberToBeSkipped);
+        int number = Integer.parseInt(numberToBeSkipped);
 
         if(currentTrack != null) {
             if (number <= trackQueue.size()) {

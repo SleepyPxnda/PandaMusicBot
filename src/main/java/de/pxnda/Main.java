@@ -77,11 +77,17 @@ public class Main extends ListenerAdapter {
             case "skip":
                 cmdExecutor = new CommandExecutor(new SkipCommand(e));
                 break;
+            case "clr":
             case "clear":
                 cmdExecutor = new CommandExecutor(new ClearCommand(e));
                 break;
+            case "fwd":
             case "forward":
                 cmdExecutor = new CommandExecutor(new ForwardCommand(e, contents.get(1)));
+                break;
+            case "del":
+            case "delete":
+                cmdExecutor = new CommandExecutor(new DeleteSongCommand(e, contents.get(1)));
                 break;
             case "help":
             default:
