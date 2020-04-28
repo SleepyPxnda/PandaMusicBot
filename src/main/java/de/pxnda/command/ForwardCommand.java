@@ -32,13 +32,12 @@ public class ForwardCommand implements ICommand {
         if(currentTrack != null) {
             if (number <= trackQueue.size()) {
                 for (int i = 0; i < number; i++) {
-                    currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
-                    channel.sendMessage("I skipped the current Track: " + currentTrack.getInfo().title).queue();
                     Main.playerManager.getGuildMusicManager(guild).scheduler.nextTrack();
                 }
+                channel.sendMessage("I skipped the next " + number + " Songs for you").queue();
             } else {
                 trackQueue.clear();
-                channel.sendMessage("Since you wanted to skip more than the Queuelenght I cleared the queue for you").queue();
+                channel.sendMessage("Since you wanted to skip more than the Amount of Songs I cleared the queue for you").queue();
             }
         }
         else {
