@@ -37,7 +37,7 @@ public class QueueCommand implements ICommand {
 
         if(currentTrack != null){
             timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
-            embed.addField("-------------------------", "Current Song - [ " + timeNeededbyTracksBefore + " ]", false);
+            embed.addField("-------------------------", "Current Song - [ " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", false);
             embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
         }
@@ -54,7 +54,7 @@ public class QueueCommand implements ICommand {
                     break;
                 }
                 i++;
-                embed.addField((i) + ": " + track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, true);
+                embed.addField((i) + ": " + track.getInfo().title + " [ " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, true);
                 timeNeededbyTracksBefore += track.getDuration();
 
             }
