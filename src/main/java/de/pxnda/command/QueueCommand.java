@@ -30,8 +30,6 @@ public class QueueCommand implements ICommand {
         int timeNeededbyTracksBefore  = 0;
         EmbedBuilder embed = new EmbedBuilder();
 
-
-
         int maxQueueShown = 25;
         int i = 0;
 
@@ -61,7 +59,7 @@ public class QueueCommand implements ICommand {
         }
 
         if(trackQueue.size() == 0){
-            embed.addField("Nothing to play", "I fell empty - Queue", false);
+            embed.addField("Nothing to play", "I feel empty - 'Queue'", false);
         }
 
         //Footer Handler

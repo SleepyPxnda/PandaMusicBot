@@ -48,7 +48,7 @@ public class PlayerManager {
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                channel.sendMessage("Adding to queue " + track.getInfo().title + " - by " + request.getAuthor().getName()).queue();
+                channel.sendMessage("**Adding** to queue " + track.getInfo().title + " - by **" + request.getAuthor().getName()  + "**").queue();
 
                 play(musicManager, track);
 
@@ -66,7 +66,7 @@ public class PlayerManager {
                     play(musicManager, track);
                 }
 
-                channel.sendMessage("Added " + playlist.getTracks().size() + " Songs from Playlist " + playlist.getName() + " to queue - by " + request.getAuthor().getName()).queue();
+                channel.sendMessage("**Added** " + playlist.getTracks().size() + " Songs from **Playlist** " + playlist.getName() + " to queue - by **" + request.getAuthor().getName() + "**").queue();
             }
 
             @Override
@@ -76,7 +76,7 @@ public class PlayerManager {
 
             @Override
             public void loadFailed(FriendlyException exception) {
-                channel.sendMessage("Could not play: " + exception.getMessage()).queue();
+                channel.sendMessage("Could **not play**: " + exception.getMessage()).queue();
             }
         });
     }

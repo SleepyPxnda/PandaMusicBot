@@ -27,7 +27,7 @@ public class PauseCommand implements ICommand {
         else
         {
             manager.player.setPaused(true);
-            channel.sendMessage("I paused the Music for you").queue();
+            channel.sendMessage("I **paused** the Music for you").queue();
         }
     }
 }

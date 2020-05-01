@@ -22,6 +22,8 @@ public class Main extends ListenerAdapter {
 
     public static void main(String[] args) {
 
+        System.out.println("Systemargs:" + args);
+
         try {
             new JDABuilder("Njk1MzQ3NTI0ODM1MzQ0NDA0.XpMmlw.ck4FgKN8jYsVaxjiwWTe5iQ-Ewg").addEventListeners(new Main()).build();
         } catch (Exception e) {
@@ -36,7 +38,28 @@ public class Main extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent e) {
+
         if (e.getAuthor().isBot()) return;
+
+        Member member = e.getMember();
+
+        List<Role> roles = member.getRoles();
+        boolean checkBool;
+
+        for(Role r : roles){
+            if(r.getName().toLowerCase().equalsIgnoreCase("panda master")){
+                checkBool = false;
+            }
+        }
+
+        checkBool = member.getIdLong() == 171984500480409603L;
+
+        if(!checkBool){
+            e.getChannel().sendMessage("You can't control me without the **Panda Master** Role (case-insensitiv)").queue();;
+            return;
+        }
+
+
 
         CommandExecutor cmdExecutor;
 

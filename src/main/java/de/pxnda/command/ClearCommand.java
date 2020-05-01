@@ -24,7 +24,7 @@ public class ClearCommand implements ICommand {
 
     @Override
     public void execute() {
-        channel.sendMessage("My Queue with " + Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().size() + " was destroyed by " + member.getEffectiveName()).queue();
+        channel.sendMessage("My **Queue** with " + Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().size() + " was **destroyed** by " + member.getEffectiveName()).queue();
         Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().clear();
     }
 }
