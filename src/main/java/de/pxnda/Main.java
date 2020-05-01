@@ -41,26 +41,6 @@ public class Main extends ListenerAdapter {
 
         if (e.getAuthor().isBot()) return;
 
-        Member member = e.getMember();
-
-        List<Role> roles = member.getRoles();
-        boolean checkBool;
-
-        for(Role r : roles){
-            if(r.getName().toLowerCase().equalsIgnoreCase("panda master")){
-                checkBool = false;
-            }
-        }
-
-        checkBool = member.getIdLong() == 171984500480409603L;
-
-        if(!checkBool){
-            e.getChannel().sendMessage("You can't control me without the **Panda Master** Role (case-insensitiv)").queue();;
-            return;
-        }
-
-
-
         CommandExecutor cmdExecutor;
 
         Message message = e.getMessage();
@@ -73,6 +53,11 @@ public class Main extends ListenerAdapter {
             return;
         }
 
+        if(!checkForUsePermission(e.getMember())){
+            e.getChannel().sendMessage("You cannot use me without the Role **Panda Master** (case-insensitive)").queue();
+            return;
+        }
+
         Date date = new Date();
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
@@ -80,7 +65,6 @@ public class Main extends ListenerAdapter {
         System.out.println(ts + " | " + e.getGuild().getName() + " |" + " [" + command + "] issued by " + e.getAuthor().getName());
 
         switch (command) {
-
             case "join":
                 cmdExecutor = new CommandExecutor(new JoinCommand(e));
                 break;
@@ -178,5 +162,21 @@ public class Main extends ListenerAdapter {
                 }
             }
         }
+    }
+
+    public boolean checkForUsePermission(Member member){
+        List<Role> roles = member.getRoles();
+
+        for(Role r : roles){
+            if(r.getName().toLowerCase().equalsIgnoreCase("panda master")){
+                return true;
+            }
+        }
+
+        if(member.getIdLong() ==  171984500480409603L){
+            return true;
+        }
+
+        return false;
     }
 }
