@@ -31,7 +31,7 @@ public class CustomLogger extends Application {
 
         StackPane root = new StackPane();
         root.getChildren().add(listView);
-        stage.setScene(new Scene(root, 300, 400));
+        stage.setScene(new Scene(root, 1024, 576));
         stage.show();
 
         listView.setCellFactory(param -> new ColoredCell(randomColor()));
