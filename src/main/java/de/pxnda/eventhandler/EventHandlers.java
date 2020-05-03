@@ -49,7 +49,7 @@ public class EventHandlers extends ListenerAdapter {
         Timestamp ts = new Timestamp(time);
 
         Platform.runLater(() -> {
-            CustomLogger.addEntry(ts + " - " + e.getGuild().getName() + " - " + "[" + command + "] issued by " + e.getAuthor().getName());
+            CustomLogger.addEntry(ts + " #-# " + e.getGuild().getName() + " #-# " + "[" + command + "] issued by " + e.getAuthor().getName());
         });
 
         switch (command) {
