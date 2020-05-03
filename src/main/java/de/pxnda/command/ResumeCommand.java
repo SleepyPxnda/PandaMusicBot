@@ -24,7 +24,7 @@ public class ResumeCommand implements ICommand {
     public void execute() {
         if(manager.player.isPaused()){
             manager.player.setPaused(false);
-            channel.sendMessage("I resumed to play " + manager.player.getPlayingTrack().getInfo().title).queue();
+            channel.sendMessage("I **resumed** to play " + manager.player.getPlayingTrack().getInfo().title).queue();
         }
         else
         {

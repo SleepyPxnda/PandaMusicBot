@@ -47,7 +47,7 @@ public class DeleteSongCommand implements ICommand {
             Boolean success = trackQueue.remove(tobeDeleted);
 
             if(success){
-                channel.sendMessage(" I deleted " + tobeDeleted.getInfo().title + " from my Queue at position " + number).queue();
+                channel.sendMessage(" I **deleted** " + tobeDeleted.getInfo().title + " from my Queue at position " + number).queue();
             }else
             {
                 channel.sendMessage("Something went wrong while I tried to delete Song at Number: " + number + " Index:" + index).queue();

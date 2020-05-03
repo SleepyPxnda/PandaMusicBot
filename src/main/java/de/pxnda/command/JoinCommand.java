@@ -27,7 +27,7 @@ public class JoinCommand implements ICommand {
         }
         else
         {
-            textChannel.sendMessage("I can't find you in any Voicechannel, so i couldn't join you").queue();
+            textChannel.sendMessage("I can't find you in any Voicechannel...").queue();
         }
     }
 }

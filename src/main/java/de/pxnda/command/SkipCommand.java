@@ -24,7 +24,7 @@ public class SkipCommand implements ICommand {
         AudioTrack currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
 
         if(currentTrack != null) {
-            channel.sendMessage("I skipped " + currentTrack.getInfo().title + " for you").queue();
+            channel.sendMessage("I **skipped** " + currentTrack.getInfo().title + " for you").queue();
             Main.playerManager.getGuildMusicManager(guild).scheduler.nextTrack();
         }
         else

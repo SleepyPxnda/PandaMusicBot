@@ -39,7 +39,7 @@ public class PlayCommand implements ICommand {
 
             if(manager.player.isPaused()){
                 manager.player.setPaused(false);
-                textChannel.sendMessage("I got paused, so I resumed to play");
+                textChannel.sendMessage("I got paused, so I **resumed** to play");
             }
 
             audioManager.openAudioConnection(userVoiceChannel);
@@ -50,7 +50,7 @@ public class PlayCommand implements ICommand {
         }
         else
         {
-            textChannel.sendMessage("You need to be in a Voicechannel to use this").queue();
+            textChannel.sendMessage("You need to be in a **Voicechannel** to use this").queue();
         }
     }
 }

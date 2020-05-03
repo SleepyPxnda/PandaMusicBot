@@ -30,14 +30,12 @@ public class QueueCommand implements ICommand {
         int timeNeededbyTracksBefore  = 0;
         EmbedBuilder embed = new EmbedBuilder();
 
-
-
         int maxQueueShown = 25;
         int i = 0;
 
         if(currentTrack != null){
             timeNeededbyTracksBefore += (currentTrack.getDuration() - currentTrack.getPosition());
-            embed.addField("-------------------------", "Currently Playing", false);
+            embed.addField("-------------------------", "Current Song - [ " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", false);
             embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
             embed.addField("-------------------------", "Following", false);
         }
@@ -54,14 +52,14 @@ public class QueueCommand implements ICommand {
                     break;
                 }
                 i++;
-                embed.addField((i) + ": " + track.getInfo().title + " [ in " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, false);
+                embed.addField((i) + ": " + track.getInfo().title + " [ " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]", track.getInfo().uri, true);
                 timeNeededbyTracksBefore += track.getDuration();
 
             }
         }
 
         if(trackQueue.size() == 0){
-            embed.addField("Nothing to play", "I fell empty - Queue", false);
+            embed.addField("Nothing to play", "I feel empty - 'Queue'", false);
         }
 
         //Footer Handler
