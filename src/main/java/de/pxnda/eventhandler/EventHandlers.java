@@ -2,7 +2,7 @@ package de.pxnda.eventhandler;
 
 import de.pxnda.Main;
 import de.pxnda.Utils.CommandExecutor;
-import de.pxnda.Utils.CustomLogger;
+import de.pxnda.Logging.GUILogger;
 import de.pxnda.command.*;
 import javafx.application.Platform;
 import net.dv8tion.jda.api.entities.*;
@@ -48,9 +48,7 @@ public class EventHandlers extends ListenerAdapter {
         long time = date.getTime();
         Timestamp ts = new Timestamp(time);
 
-        Platform.runLater(() -> {
-            CustomLogger.addEntry(ts + " - " + e.getGuild().getName() + " - " + "[" + command + "] issued by " + e.getAuthor().getName());
-        });
+        Main.Logger.log(ts + " #-# " + e.getGuild().getName() + " #-# " + "[" + command + "] issued by " + e.getAuthor().getName());
 
         switch (command) {
             case "join":
