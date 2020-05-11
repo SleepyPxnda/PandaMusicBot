@@ -1,12 +1,17 @@
 package de.pxnda;
 
-import de.pxnda.Utils.CustomLogger;
+import de.pxnda.Logging.ConsoleLogger;
+import de.pxnda.Logging.GUILogger;
+import de.pxnda.Logging.ILogger;
 import de.pxnda.eventhandler.EventHandlers;
 import de.pxnda.music.PlayerManager;
 import javafx.application.Application;
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.VoiceChannel;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -14,13 +19,15 @@ public class Main {
     public static List<VoiceChannel> tempChannelList;
     public static PlayerManager playerManager;
     public static String prefix = "*";
+    public static ILogger Logger;
+    public static JDA jda;
 
     //ToDo: Replace all Messages with Embed
 
     public static void main(String[] args) {
 
         try {
-            new JDABuilder("Njk1MzQ3NTI0ODM1MzQ0NDA0.XpMmlw.ck4FgKN8jYsVaxjiwWTe5iQ-Ewg").addEventListeners(new EventHandlers()).build();
+            jda = new JDABuilder("Njk1MzQ3NTI0ODM1MzQ0NDA0.XpMmlw.ck4FgKN8jYsVaxjiwWTe5iQ-Ewg").addEventListeners(new EventHandlers()).build();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,7 +38,16 @@ public class Main {
         System.out.println("Bot started with prefix " + prefix);
         System.out.println("Starting Gui ....");
 
-        Application.launch(CustomLogger.class, args);
+        List<String> argsList = Arrays.asList(args);
+
+        if(argsList.contains("gui")){
+            Logger = new GUILogger();
+            Application.launch(GUILogger.class, args);
+        }
+        else
+        {
+            Logger = new ConsoleLogger();
+        }
     }
 
 
