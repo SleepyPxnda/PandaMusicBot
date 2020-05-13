@@ -77,20 +77,23 @@ public class GUILogger extends Application implements ILogger{
     }
 
     @Override
-    public void log(String log) {
-            String server =  log.split(" #-# ")[1];
+    public void log(String log, String guildname) {
+        Platform.runLater(() -> {
+            String server =  guildname;
 
             if(serverHistory.containsKey(server)){
-                serverHistory.get(server).add(log.replace(" #-# ", " | "));
+                serverHistory.get(server).add(log);
                 System.out.println("Found Log, added Entry");
             }
             else
             {
                 serverHistory.put(server, FXCollections.observableArrayList());
-                serverHistory.get(server).add(log.replace(" #-# ", " | "));
+                serverHistory.get(server).add(log);
                 serverChooserList.add(server);
                 System.out.println("New Server log registered, added Entry");
             }
+        });
+
     }
 
     static class ColorRectCell extends ListCell<String> {

@@ -1,5 +1,5 @@
 package de.pxnda.Logging;
 
 public interface ILogger {
-    public void log(String log);
+    public void log(String log, String guildname);
 }
