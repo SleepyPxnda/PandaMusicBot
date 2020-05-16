@@ -3,7 +3,10 @@ package de.pxnda;
 import de.pxnda.Logging.ConsoleLogger;
 import de.pxnda.Logging.GUILogger;
 import de.pxnda.Logging.ILogger;
-import de.pxnda.eventhandler.EventHandlers;
+import de.pxnda.Utils.SavedSongStorage;
+import de.pxnda.eventhandler.GuildVoiceEventHandler;
+import de.pxnda.eventhandler.MessageEventHandler;
+import de.pxnda.eventhandler.MessageReactEventHandler;
 import de.pxnda.music.PlayerManager;
 import javafx.application.Application;
 import net.dv8tion.jda.api.JDA;
@@ -27,10 +30,14 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            jda = new JDABuilder("Njk1MzQ3NTI0ODM1MzQ0NDA0.XpMmlw.ck4FgKN8jYsVaxjiwWTe5iQ-Ewg").addEventListeners(new EventHandlers()).build();
+            jda = new JDABuilder("Njk1MzQ3NTI0ODM1MzQ0NDA0.XpMmlw.ck4FgKN8jYsVaxjiwWTe5iQ-Ewg")
+                    .addEventListeners(new GuildVoiceEventHandler(), new MessageEventHandler(), new MessageReactEventHandler())
+                    .build();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        SavedSongStorage.globalPlaylistStorage.put("finns-dnd", SavedSongStorage.FinnsList);
 
         playerManager = new PlayerManager();
         tempChannelList = new ArrayList<>();
@@ -39,7 +46,7 @@ public class Main {
         System.out.println("Starting Gui ....");
 
         List<String> argsList = Arrays.asList(args);
-
+        
         if(argsList.contains("gui")){
             Logger = new GUILogger();
             Application.launch(GUILogger.class, args);
@@ -49,7 +56,4 @@ public class Main {
             Logger = new ConsoleLogger();
         }
     }
-
-
-
 }

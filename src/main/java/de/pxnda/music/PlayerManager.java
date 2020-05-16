@@ -13,7 +13,6 @@ import net.dv8tion.jda.api.entities.TextChannel;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class PlayerManager {
     private static PlayerManager INSTANCE;
@@ -48,7 +47,8 @@ public class PlayerManager {
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                channel.sendMessage("**Adding** to queue " + track.getInfo().title + " - by **" + request.getAuthor().getName()  + "**").queue();
+                if(request != null)
+                    channel.sendMessage("**Adding** to queue " + track.getInfo().title + " - by **" + request.getAuthor().getName()  + "**").queue();
 
                 play(musicManager, track);
 
@@ -57,7 +57,7 @@ public class PlayerManager {
             @Override
             public void playlistLoaded(AudioPlaylist playlist) {
 
-                if(playlist.getTracks().size() > 100){
+                if(playlist.getTracks().size() > 200){
                     channel.sendMessage("Too many songs in the List").queue();
                     return;
                 }
@@ -66,7 +66,8 @@ public class PlayerManager {
                     play(musicManager, track);
                 }
 
-                channel.sendMessage("**Added** " + playlist.getTracks().size() + " Songs from **Playlist** " + playlist.getName() + " to queue - by **" + request.getAuthor().getName() + "**").queue();
+                if(request != null)
+                    channel.sendMessage("**Added** " + playlist.getTracks().size() + " Songs from **Playlist** " + playlist.getName() + " to queue - by **" + request.getAuthor().getName() + "**").queue();
             }
 
             @Override
@@ -89,7 +90,6 @@ public class PlayerManager {
         if (INSTANCE == null) {
             INSTANCE = new PlayerManager();
         }
-
         return INSTANCE;
     }
 }
