@@ -86,6 +86,9 @@ public class MessageEventHandler extends ListenerAdapter {
             case "stop":
                 cmdExecutor = new CommandExecutor(new StopCommand(e));
                 break;
+            case "loop":
+                cmdExecutor = new CommandExecutor(new LoopCommand(e));
+                break;
             case "help":
             default:
                 cmdExecutor = new CommandExecutor(new HelpCommand(e));

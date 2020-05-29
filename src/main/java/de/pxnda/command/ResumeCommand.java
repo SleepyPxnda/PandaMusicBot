@@ -1,6 +1,5 @@
 package de.pxnda.command;
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import de.pxnda.music.GuildMusicManager;

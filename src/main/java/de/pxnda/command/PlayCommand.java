@@ -1,17 +1,14 @@
 package de.pxnda.command;
 
 import de.pxnda.Main;
-import de.pxnda.Utils.CommandExecutor;
 import de.pxnda.Utils.ICommand;
-import de.pxnda.command.JoinCommand;
 import de.pxnda.music.GuildMusicManager;
-import de.pxnda.music.PlayerManager;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
-import net.dv8tion.jda.internal.audio.AudioConnection;
-
-import java.util.concurrent.TimeUnit;
 
 public class PlayCommand implements ICommand {
 
@@ -43,7 +40,7 @@ public class PlayCommand implements ICommand {
             audioManager.openAudioConnection(userVoiceChannel);
 
             Main.playerManager.loadAndPlay(textChannel, message.getContentRaw().split(" ")[1], message);
-            message.delete().queueAfter(5, TimeUnit.SECONDS);
+            //message.delete().queue();
 
         }
         else

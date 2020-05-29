@@ -1,14 +1,11 @@
 package de.pxnda.command;
 
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-
 
 public class ClearCommand implements ICommand {
 

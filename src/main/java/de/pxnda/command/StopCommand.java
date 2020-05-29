@@ -4,11 +4,8 @@ import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import de.pxnda.music.GuildMusicManager;
 import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.managers.AudioManager;
 
 public class StopCommand implements ICommand {
 
