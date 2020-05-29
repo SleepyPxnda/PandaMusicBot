@@ -44,7 +44,7 @@ public class MessageReactEventHandler extends ListenerAdapter {
             if(PrepareSavedPlaylistCommand.idToLink.containsKey(msg)){
                 if(manager.player.getPlayingTrack() != null){
                     manager.player.stopTrack();
-                    manager.scheduler.nextTrack();
+                    manager.scheduler.getQueue().clear();
                     textChannel.sendMessage("I **stopped** the current Song for you").queue();
                 }
             }

@@ -7,14 +7,12 @@ import net.dv8tion.jda.api.managers.AudioManager;
 
 public class JoinCommand implements ICommand {
 
-    private final Member member;
     private final VoiceChannel voiceChannel;
     private final TextChannel textChannel;
     private final Guild guild;
 
     public JoinCommand(MessageReceivedEvent event){
-        this.member = event.getMember();
-        this.voiceChannel =  member.getVoiceState().getChannel();
+        this.voiceChannel =  event.getMember().getVoiceState().getChannel();
         this.textChannel = event.getTextChannel();
         this. guild = event.getGuild();
     }
