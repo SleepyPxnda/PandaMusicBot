@@ -80,9 +80,6 @@ public class MessageEventHandler extends ListenerAdapter {
             case "resume":
                 cmdExecutor = new CommandExecutor(new ResumeCommand(e));
                 break;
-            case "playlist":
-                cmdExecutor = new CommandExecutor(new PrepareSavedPlaylistCommand(e));
-                break;
             case "stop":
                 cmdExecutor = new CommandExecutor(new StopCommand(e));
                 break;
