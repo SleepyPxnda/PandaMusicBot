@@ -30,6 +30,7 @@ public class EventUtils {
                         guild.getAudioManager().closeAudioConnection();
                         Main.playerManager.getGuildMusicManager(guild).player.stopTrack();
                         Main.playerManager.getGuildMusicManager(guild).scheduler.getQueue().clear();
+
                     }
                 }
             }

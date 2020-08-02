@@ -16,7 +16,7 @@ public class JoinCommand implements ICommand {
         this.textChannel = event.getTextChannel();
         this. guild = event.getGuild();
     }
-
+    
     @Override
     public void execute() {
         if(voiceChannel != null){
