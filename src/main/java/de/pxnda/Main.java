@@ -9,6 +9,7 @@ import de.pxnda.music.PlayerManager;
 import javafx.application.Application;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        jda.getPresence().setPresence(Activity.listening("to *"), false);
 
         SavedSongStorage.globalPlaylistStorage.put("finns-dnd", SavedSongStorage.FinnsList);
 
