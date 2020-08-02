@@ -31,7 +31,7 @@ public class HelpCommand implements ICommand {
         embed.addField("forward [number]", "Skips the given amount of Songs ", true);
         embed.addField("delete [index]", "Deletes Song at given Index (pls use Index Numbers from " + Main.prefix + "queue) ", true);
 
-        embed.setFooter("Pls be nice to the Bot");
+        embed.setFooter("Built with \\U+2665");
 
         channel.sendMessage(embed.build()).queue();
 
