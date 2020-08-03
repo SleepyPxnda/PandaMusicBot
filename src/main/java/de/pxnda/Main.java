@@ -35,14 +35,10 @@ public class Main {
             e.printStackTrace();
         }
 
-        SavedSongStorage.globalPlaylistStorage.put("finns-dnd", SavedSongStorage.FinnsList);
-
         playerManager = new PlayerManager();
         tempChannelList = new ArrayList<>();
 
         System.out.println("Bot started with prefix " + prefix);
-        System.out.println("Starting Gui ....");
-        
         Logger = new ConsoleLogger();
 
     }
