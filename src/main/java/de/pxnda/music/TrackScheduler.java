@@ -15,6 +15,7 @@ public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
     private final BlockingQueue<AudioTrack> queue;
     private boolean isLooping;
+    private AudioTrack loopingTrack;
 
     /**
      * @param player The audio player this scheduler uses
@@ -34,7 +35,6 @@ public class TrackScheduler extends AudioEventAdapter {
     // something is playing, it returns false and does nothing. In that case the player was already playing so this
     // track goes to the queue instead.
     public void queue(AudioTrack track) {
-
         if (!player.startTrack(track, true)) {
             queue.offer(track);
         }
@@ -46,10 +46,8 @@ public class TrackScheduler extends AudioEventAdapter {
     // Start the next track, regardless of if something is already playing or not. In case queue was empty, we are
     // giving null to startTrack, which is a valid argument and will simply stop the player.
     public void nextTrack() {
-
         if(isLooping){
-            AudioTrack currentTrack = player.getPlayingTrack();
-            player.startTrack(currentTrack.makeClone(), false);
+            player.startTrack(loopingTrack.makeClone(), false);
         }else{
             player.startTrack(queue.poll(), false);
         }
@@ -73,5 +71,6 @@ public class TrackScheduler extends AudioEventAdapter {
     }
     public void setLooping(boolean value){
         this.isLooping = value;
+        this.loopingTrack = player.getPlayingTrack();
     }
 }

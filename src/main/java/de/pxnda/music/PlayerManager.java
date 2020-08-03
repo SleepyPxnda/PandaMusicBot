@@ -51,7 +51,6 @@ public class PlayerManager {
                     channel.sendMessage("**Adding** to queue " + track.getInfo().title + " - by **" + request.getAuthor().getName()  + "**").queue();
 
                 play(musicManager, track);
-
             }
 
             @Override

@@ -3,6 +3,7 @@ package de.pxnda.command;
 import de.pxnda.Utils.ICommand;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.managers.AudioManager;
 
 public class JoinCommand implements ICommand {
@@ -21,7 +22,13 @@ public class JoinCommand implements ICommand {
     public void execute() {
         if(voiceChannel != null){
             AudioManager manager = guild.getAudioManager();
-            manager.openAudioConnection(voiceChannel);
+
+            try {
+                manager.openAudioConnection(voiceChannel);
+            }catch (UnsupportedOperationException | InsufficientPermissionException e){
+                textChannel.sendMessage("I cannot join your Channel").queue();
+                return;
+            }
         }
         else
         {

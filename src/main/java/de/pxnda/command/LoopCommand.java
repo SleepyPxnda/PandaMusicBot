@@ -20,6 +20,11 @@ public class LoopCommand implements ICommand {
 
     @Override
     public void execute() {
+        if(manager.player.getPlayingTrack() == null){
+            textChannel.sendMessage("Pls start a Song before trying to loop it").queue();
+            return;
+        }
+
         if(!manager.scheduler.isLooping()){
             textChannel.sendMessage("Looping **enabled**! Song: " + manager.player.getPlayingTrack().getInfo().title).queue();
             manager.scheduler.setLooping(true);
