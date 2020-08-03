@@ -30,6 +30,7 @@ public class HelpCommand implements ICommand {
         embed.addField("skip", "Skips the current Song ", true);
         embed.addField("forward [number]", "Skips the given amount of Songs ", true);
         embed.addField("delete [index]", "Deletes Song at given Index (pls use Index Numbers from " + Main.prefix + "queue) ", true);
+        embed.addField("loop", "Enables / Disables the Loop of the Current Song ", true);
 
         embed.setFooter("Built with \\U+2665");
 
