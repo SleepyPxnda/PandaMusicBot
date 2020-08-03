@@ -32,14 +32,13 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         jda.getPresence().setPresence(Activity.listening("to *"), false);
 
         playerManager = new PlayerManager();
         tempChannelList = new ArrayList<>();
 
         System.out.println("Bot started with prefix " + prefix);
-        System.out.println("Starting Gui ....");
-        
         Logger = new ConsoleLogger();
 
     }
