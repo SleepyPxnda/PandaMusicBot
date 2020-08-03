@@ -34,8 +34,6 @@ public class Main {
         }
         jda.getPresence().setPresence(Activity.listening("to *"), false);
 
-        SavedSongStorage.globalPlaylistStorage.put("finns-dnd", SavedSongStorage.FinnsList);
-
         playerManager = new PlayerManager();
         tempChannelList = new ArrayList<>();
 
