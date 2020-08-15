@@ -33,10 +33,21 @@ public class PlayCommand implements ICommand {
     public void execute() {
         if(userVoiceChannel != null){
 
+
+            int argumentLength = message.getContentRaw().split(" ").length;
+
+            if(argumentLength > 0){
+                textChannel.sendMessage("Pls pass an URL as second argument").queue();
+                return;
+            }
+
+            String songUrl = message.getContentRaw().split(" ")[1];
+
             if(manager.player.isPaused()){
                 manager.player.setPaused(false);
-                textChannel.sendMessage("I got paused, so I **resumed** to play");
+                textChannel.sendMessage("I got paused, so I **resumed** to play").queue();
             }
+
 
             try {
                 audioManager.openAudioConnection(userVoiceChannel);
@@ -46,7 +57,7 @@ public class PlayCommand implements ICommand {
             }
 
 
-            Main.playerManager.loadAndPlay(textChannel, message.getContentRaw().split(" ")[1], message);
+            Main.playerManager.loadAndPlay(textChannel, songUrl, message);
             //message.delete().queue();
 
         }
