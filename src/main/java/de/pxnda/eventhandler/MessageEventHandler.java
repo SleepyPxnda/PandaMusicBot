@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +25,13 @@ public class MessageEventHandler extends ListenerAdapter {
         Message message = e.getMessage();
 
         String rawContent = message.getContentRaw();
-        List<String> contents = Arrays.asList(rawContent.split(" "));
-        String command = contents.get(0).substring(1);
 
         if (!rawContent.startsWith(Main.prefix)) {
             return;
         }
+
+        List<String> contents = Arrays.asList(rawContent.split(" "));
+        String command = contents.get(0).substring(1);
 
         /*
         if(!checkForUsePermission(e.getMember())){
@@ -37,11 +40,10 @@ public class MessageEventHandler extends ListenerAdapter {
         }
         */
 
-        Date date = new Date();
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
+        String dateString = formatter.format(new Date());
 
-        Main.Logger.log(ts + " | " + "[" + command + "] issued by " + e.getAuthor().getName(), e.getGuild().getName());
+        Main.Logger.log(dateString + " | " + "[" + command + "] issued by " + e.getAuthor().getName(), e.getGuild().getName());
 
         switch (command) {
             case "join":
