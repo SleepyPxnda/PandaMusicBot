@@ -63,6 +63,7 @@ public class PlayerManager {
 
                 for (AudioTrack track : playlist.getTracks()){
                     play(musicManager, track);
+                    System.out.println("Trackname: " + track.getInfo().title);
                 }
 
                 if(request != null)

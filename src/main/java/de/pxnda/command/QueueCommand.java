@@ -47,7 +47,6 @@ public class QueueCommand implements ICommand {
 
 
         if(trackQueue.size() > 0){
-
             int maxlength = Math.min(trackQueue.size(), maxQueueShown);
             for (AudioTrack track : trackQueue) {
                 if(i >= maxlength){

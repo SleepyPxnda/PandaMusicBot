@@ -36,8 +36,8 @@ public class PlayCommand implements ICommand {
 
             int argumentLength = message.getContentRaw().split(" ").length;
 
-            if(argumentLength > 0){
-                textChannel.sendMessage("Pls pass an URL as second argument").queue();
+            if(argumentLength <= 1){
+                textChannel.sendMessage("pls pass an URL as second argument").queue();
                 return;
             }
 
@@ -51,14 +51,19 @@ public class PlayCommand implements ICommand {
 
             try {
                 audioManager.openAudioConnection(userVoiceChannel);
-            }catch (UnsupportedOperationException | InsufficientPermissionException e){
-                textChannel.sendMessage("I cannot join your Channel").queue();
+            }catch (UnsupportedOperationException e){
+                textChannel.sendMessage("Can't join your Channel | Unsupported Operation").queue();
+                return;
+            }catch (InsufficientPermissionException e){
+                textChannel.sendMessage("Can't join your Channel | Missing Permission: " + e.getPermission().getName()).queue();
+                return;
+            }catch (Exception e){
+                textChannel.sendMessage("Can't join your Channel | New Exception").queue();
                 return;
             }
 
 
             Main.playerManager.loadAndPlay(textChannel, songUrl, message);
-            //message.delete().queue();
 
         }
         else
