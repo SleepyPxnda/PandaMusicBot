@@ -63,7 +63,7 @@ public class PlayCommand implements ICommand {
             }
 
 
-            Main.playerManager.loadAndPlay(textChannel, songUrl, message);
+            Main.playerManager.loadAndPlay(textChannel, songUrl, message.getAuthor(), false);
 
         }
         else

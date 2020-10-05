@@ -28,7 +28,7 @@ public class NowPlayingCommand implements ICommand {
         long timeNeededbyTracksBefore = currentTrack.getDuration() - currentTrack.getPosition();
 
         EmbedBuilder embed = new EmbedBuilder();
-        embed.setTitle("The current **Son**g is - " + "[ " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]");
+        embed.setTitle("The current **Song** is - " + "[ " + convertToTimeStamp(timeNeededbyTracksBefore) + " ]");
         embed.addField(currentTrack.getInfo().title, currentTrack.getInfo().uri, false);
 
         channel.sendMessage(embed.build()).queue();
