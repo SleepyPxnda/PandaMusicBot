@@ -11,12 +11,12 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @SpringBootApplication
+@PropertySource("classpath:application.properties")
 public class Main {
 
     public static List<VoiceChannel> tempChannelList;
@@ -46,7 +46,6 @@ public class Main {
         Logger = new ConsoleLogger();
 
         SpringApplication app = new SpringApplication(Main.class);
-        app.setDefaultProperties(Collections.singletonMap("server.port", "8081"));
         app.run(args);
 
         System.out.println("Spring Boot started");

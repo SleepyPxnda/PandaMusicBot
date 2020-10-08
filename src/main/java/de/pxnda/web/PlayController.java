@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 @RestController
 public class PlayController {
@@ -53,6 +57,11 @@ public class PlayController {
             textChannel.sendMessage("Can't join your Channel | New Exception").queue();
             return "Can't join your Channel | New Exception";
         }
+
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
+        String dateString = formatter.format(new Date());
+
+        Main.Logger.log(dateString + " | " + "[ queue ] issued by " + member.getUser().getName(), guild.getName());
 
         Main.playerManager.loadAndPlay(textChannel, songForm.SongURL, member.getUser(), true);
 

@@ -69,7 +69,6 @@ public class PlayerManager {
 
                 for (AudioTrack track : playlist.getTracks()){
                     play(musicManager, track);
-                    System.out.println("Trackname: " + track.getInfo().title);
                 }
                 if(onWeb) {
                     channel.sendMessage("\uD83D\uDD35 " + playlist.getTracks().size() + " Songs from _" + playlist.getName() + "_ ➡️ **" + requester.getName() + "**").queue();
