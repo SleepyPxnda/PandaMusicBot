@@ -13,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
 
+import javax.security.auth.login.LoginException;
 import java.util.*;
 
 @SpringBootApplication
@@ -27,15 +28,11 @@ public class Main {
 
     //ToDo: Replace all Messages with Embed
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LoginException {
 
-        try {
-            jda = new JDABuilder("NzM5MTAwNDQ4NjkwMTQzMjYy.XyVi7g.k2gyw6vBGnBBwph_PnitgzhGM-w")
-                    .addEventListeners(new GuildVoiceEventHandler(), new MessageEventHandler())
-                    .build();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        jda = JDABuilder.createDefault("NzM5MTAwNDQ4NjkwMTQzMjYy.XyVi7g.k2gyw6vBGnBBwph_PnitgzhGM-w")
+                .addEventListeners(new GuildVoiceEventHandler(), new MessageEventHandler())
+                .build();
 
         jda.getPresence().setPresence(Activity.listening("to *"), false);
 
@@ -49,6 +46,5 @@ public class Main {
         app.run(args);
 
         System.out.println("Spring Boot started");
-
     }
 }

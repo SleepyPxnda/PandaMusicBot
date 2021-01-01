@@ -54,8 +54,6 @@ public class PlayerManager {
                 else{
                     channel.sendMessage("\uD83D\uDFE2 - _" + track.getInfo().title + "_ - ➡️ **" + requester.getName()  + "**").queue();
                 }
-
-
                 play(musicManager, track);
             }
 
