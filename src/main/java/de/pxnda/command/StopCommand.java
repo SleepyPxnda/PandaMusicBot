@@ -1,5 +1,6 @@
 package de.pxnda.command;
 
+import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import de.pxnda.music.GuildMusicManager;
@@ -22,9 +23,9 @@ public class StopCommand implements ICommand {
     @Override
     public void execute() {
         if(manager.player.getPlayingTrack() != null){
+            AudioTrack currentTrack = Main.playerManager.getGuildMusicManager(guild).player.getPlayingTrack();
             manager.player.stopTrack();
-            manager.scheduler.nextTrack();
-            //textChannel.sendMessage("I **stopped** the current Song for you").queue();
+            textChannel.sendMessage("\uD83D\uDED1 _" + currentTrack.getInfo().title + "_ ").queue();
         }
     }
 }
