@@ -21,11 +21,8 @@ public class MessageEventHandler extends ListenerAdapter {
         if (e.getAuthor().isBot()) return;
 
         CommandExecutor cmdExecutor;
-
         Message message = e.getMessage();
-
         String rawContent = message.getContentRaw();
-
         if (!rawContent.startsWith(Main.prefix)) {
             return;
         }
@@ -53,7 +50,7 @@ public class MessageEventHandler extends ListenerAdapter {
                 cmdExecutor = new CommandExecutor(new LeaveCommand(e));
                 break;
             case "play":
-                cmdExecutor = new CommandExecutor(new PlayCommand(e));
+                cmdExecutor = new CommandExecutor(new PlayCommand(e.getGuild().getId(), e.getMember().getId(), e.getTextChannel().getId(), contents.get(1)));
                 break;
             case "queue":
                 cmdExecutor = new CommandExecutor(new QueueCommand(e));

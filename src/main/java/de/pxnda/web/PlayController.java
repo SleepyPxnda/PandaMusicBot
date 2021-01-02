@@ -1,6 +1,8 @@
 package de.pxnda.web;
 
 import de.pxnda.Main;
+import de.pxnda.Utils.ICommand;
+import de.pxnda.command.PlayCommand;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -17,8 +19,7 @@ import java.util.Date;
 public class PlayController {
 
     @PostMapping("/addSong")
-    public String queueSong(
-            @RequestBody SongForm songForm){
+    public String queueSong( @RequestBody SongForm songForm ){
 
         final Guild guild = Main.jda.getGuildById(songForm.ServerID);
 
@@ -26,10 +27,8 @@ public class PlayController {
             return "Guild not found";
         }
 
-        final AudioManager audioManager = guild.getAudioManager();
         final Member member = guild.getMemberById(songForm.UserID);
         final TextChannel textChannel = guild.getTextChannelById(songForm.ChannelID);
-
 
         if(textChannel == null){
             return "Textchannel not found on Guild";
@@ -39,31 +38,12 @@ public class PlayController {
             return "No Member with that Id on the Guild";
         }
 
-        final VoiceChannel voiceChannel = member.getVoiceState().getChannel();
-
-        if(voiceChannel == null){
-            return "User is not in a Voicechannel";
-        }
-
-        try {
-            audioManager.openAudioConnection(voiceChannel);
-        }catch (UnsupportedOperationException e){
-            textChannel.sendMessage("Can't join your Channel | Unsupported Operation").queue();
-            return "Can't join your Channel | Unsupported Operation";
-        }catch (InsufficientPermissionException e){
-            textChannel.sendMessage("Can't join your Channel | Missing Permission: " + e.getPermission().getName()).queue();
-            return "Can't join your Channel | Missing Permission: " + e.getPermission().getName();
-        }catch (Exception e){
-            textChannel.sendMessage("Can't join your Channel | New Exception").queue();
-            return "Can't join your Channel | New Exception";
-        }
-
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
         String dateString = formatter.format(new Date());
 
-        Main.Logger.log(dateString + " | " + "[ queue ] issued by " + member.getUser().getName(), guild.getName());
+        Main.Logger.log(dateString + " | " + "[ queue ] issued on Web by " + member.getUser().getName(), guild.getName());
 
-        Main.playerManager.loadAndPlay(textChannel, songForm.SongURL, member.getUser(), true);
+        new PlayCommand(songForm.ServerID, songForm.UserID, songForm.ChannelID, songForm.SongURL).execute();
 
         return "Added Song to Queue";
     }

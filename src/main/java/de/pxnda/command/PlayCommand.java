@@ -3,10 +3,7 @@ package de.pxnda.command;
 import de.pxnda.Main;
 import de.pxnda.Utils.ICommand;
 import de.pxnda.music.GuildMusicManager;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
 import net.dv8tion.jda.api.managers.AudioManager;
@@ -17,37 +14,35 @@ public class PlayCommand implements ICommand {
     private final AudioManager audioManager;
     private final VoiceChannel userVoiceChannel;
     private final TextChannel textChannel;
-    private final Message message;
+    private final String songUrl;
+    private final User messageAuthor;
     private final GuildMusicManager manager;
 
-    public PlayCommand(MessageReceivedEvent e) {
-        this.guild = e.getGuild();
+    public PlayCommand(String serverId, String userId, String channelId, String songUrl) {
+
+        this.guild = Main.jda.getGuildById(serverId);
         audioManager = guild.getAudioManager();
-        userVoiceChannel = e.getMember().getVoiceState().getChannel();
-        textChannel = e.getTextChannel();
-        message = e.getMessage();
+        messageAuthor = guild.getMemberById(userId).getUser();
+        userVoiceChannel = guild.getMemberById(userId).getVoiceState().getChannel();
+        textChannel = guild.getTextChannelById(channelId);
+        this.songUrl = songUrl;
         this.manager = Main.playerManager.getGuildMusicManager(guild);
+
     }
 
     @Override
     public void execute() {
         if(userVoiceChannel != null){
 
-
-            int argumentLength = message.getContentRaw().split(" ").length;
-
-            if(argumentLength <= 1){
+            if(songUrl == null){
                 textChannel.sendMessage("pls pass an URL as second argument").queue();
                 return;
             }
-
-            String songUrl = message.getContentRaw().split(" ")[1];
 
             if(manager.player.isPaused()){
                 manager.player.setPaused(false);
                 textChannel.sendMessage("I got paused, so I **resumed** to play").queue();
             }
-
 
             try {
                 audioManager.openAudioConnection(userVoiceChannel);
@@ -62,8 +57,7 @@ public class PlayCommand implements ICommand {
                 return;
             }
 
-
-            Main.playerManager.loadAndPlay(textChannel, songUrl, message.getAuthor(), false);
+            Main.playerManager.loadAndPlay(textChannel, songUrl, messageAuthor, false);
 
         }
         else
