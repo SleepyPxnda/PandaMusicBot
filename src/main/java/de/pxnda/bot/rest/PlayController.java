@@ -2,6 +2,7 @@ package de.pxnda.bot.rest;
 
 import de.pxnda.bot.BotApplication;
 import de.pxnda.bot.commands.PlayCommand;
+import de.pxnda.bot.util.models.SongForm;
 import net.dv8tion.jda.api.entities.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,40 +47,3 @@ public class PlayController {
     }
 }
 
-class SongForm{
-    public String UserID;
-    public String ServerID;
-    public String SongURL;
-    public String ChannelID;
-
-    public String getChannelID() {
-        return ChannelID;
-    }
-
-    public void setChannelID(String channelID) {
-        ChannelID = channelID;
-    }
-
-    public String getServerID() {
-        return ServerID;
-    }
-    public String getSongURL() {
-        return SongURL;
-    }
-
-    public void setUserID(String userID) {
-        UserID = userID;
-    }
-
-    public String getUserID() {
-        return UserID;
-    }
-
-    public void setServerID(String serverID) {
-        ServerID = serverID;
-    }
-
-    public void setSongURL(String songURL) {
-        SongURL = songURL;
-    }
-}
