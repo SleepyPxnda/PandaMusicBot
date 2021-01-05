@@ -42,18 +42,13 @@ public class PlayerManager {
         return musicManager;
     }
 
-    public void loadAndPlay(TextChannel channel, String trackUrl, User requester, boolean onWeb) {
+    public void loadAndPlay(TextChannel channel, String trackUrl, User requester) {
         GuildMusicManager musicManager = getGuildMusicManager(channel.getGuild());
 
         playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
             @Override
             public void trackLoaded(AudioTrack track) {
-                if(onWeb){
-                    channel.sendMessage("\uD83D\uDD35 - _" + track.getInfo().title + "_ - ➡️ **" + requester.getName()  + "**").queue();
-                }
-                else{
-                    channel.sendMessage("\uD83D\uDFE2 - _" + track.getInfo().title + "_ - ➡️ **" + requester.getName()  + "**").queue();
-                }
+                channel.sendMessage("\uD83D\uDFE2 - _" + track.getInfo().title + "_ - ➡️ **" + requester.getName()  + "**").queue();
                 play(musicManager, track);
             }
 
@@ -68,12 +63,9 @@ public class PlayerManager {
                 for (AudioTrack track : playlist.getTracks()){
                     play(musicManager, track);
                 }
-                if(onWeb) {
-                    channel.sendMessage("\uD83D\uDD35 " + playlist.getTracks().size() + " Songs from _" + playlist.getName() + "_ ➡️ **" + requester.getName() + "**").queue();
-                } else {
-                    channel.sendMessage("\uD83D\uDFE2 " + playlist.getTracks().size() + " Songs from _" + playlist.getName() + "_ ➡️ **" + requester.getName() + "**").queue();
 
-                }
+                channel.sendMessage("\uD83D\uDFE2 " + playlist.getTracks().size() + " Songs from _" + playlist.getName() + "_ ➡️ **" + requester.getName() + "**").queue();
+
             }
 
             @Override
@@ -84,6 +76,38 @@ public class PlayerManager {
             @Override
             public void loadFailed(FriendlyException exception) {
                 channel.sendMessage("\uD83D\uDD34 Error _" + exception.getMessage() + "_").queue();
+            }
+        });
+    }
+
+    //ToDo: Find a way to route error back to Controller
+    public void webLoadAndPlay(Guild guild, String trackUrl, User requester) {
+        GuildMusicManager musicManager = getGuildMusicManager(guild);
+
+        playerManager.loadItemOrdered(musicManager, trackUrl, new AudioLoadResultHandler() {
+            @Override
+            public void trackLoaded(AudioTrack track) {
+                play(musicManager, track);
+            }
+
+            @Override
+            public void playlistLoaded(AudioPlaylist playlist) {
+
+                if(playlist.getTracks().size() > 200){
+                    return;
+                }
+
+                for (AudioTrack track : playlist.getTracks()){
+                    play(musicManager, track);
+                }
+            }
+
+            @Override
+            public void noMatches() {
+            }
+
+            @Override
+            public void loadFailed(FriendlyException exception) {
             }
         });
     }

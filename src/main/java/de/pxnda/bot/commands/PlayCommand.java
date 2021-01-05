@@ -57,7 +57,7 @@ public class PlayCommand implements ICommand {
                 return;
             }
 
-            BotApplication.playerManager.loadAndPlay(textChannel, songUrl, messageAuthor, false);
+            BotApplication.playerManager.loadAndPlay(textChannel, songUrl, messageAuthor);
 
         }
         else
