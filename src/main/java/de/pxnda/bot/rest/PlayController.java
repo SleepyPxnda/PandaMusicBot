@@ -2,6 +2,7 @@ package de.pxnda.bot.rest;
 
 import de.pxnda.bot.BotApplication;
 import de.pxnda.bot.commands.PlayCommand;
+import de.pxnda.bot.util.models.ResponseJSON;
 import de.pxnda.bot.util.models.SongForm;
 import net.dv8tion.jda.api.entities.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,23 +18,25 @@ import java.util.Date;
 public class PlayController {
 
     @PostMapping("/addSong")
-    public String queueSong( @RequestBody SongForm songForm ){
+    public ResponseJSON queueSong(@RequestBody SongForm songForm ){
+
+        System.out.println(songForm);
 
         final Guild guild = BotApplication.jda.getGuildById(songForm.ServerID);
 
         if(guild == null){
-            return "Guild not found";
+            return new ResponseJSON(1 , "Guild not found");
         }
 
         final Member member = guild.getMemberById(songForm.UserID);
         final TextChannel textChannel = guild.getTextChannelById(songForm.ChannelID);
 
         if(textChannel == null){
-            return "Textchannel not found on Guild";
+            return new ResponseJSON(1 , "Textchannel not found");
         }
 
         if(member == null){
-            return "No Member with that Id on the Guild";
+            return new ResponseJSON(1 , "Member not found");
         }
 
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
@@ -43,7 +46,7 @@ public class PlayController {
 
         new PlayCommand(songForm.ServerID, songForm.UserID, songForm.ChannelID, songForm.SongURL).execute();
 
-        return "Added Song to Queue";
+        return new ResponseJSON(2 , "Song added to Queue");
     }
 }
 

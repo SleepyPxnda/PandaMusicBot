@@ -1,13 +1,23 @@
 package de.pxnda.bot.util.models;
 
-public class ErrorMessage {
+public class ResponseJSON {
     int id;
-    String message;
     String errorText;
 
-    public ErrorMessage(int id, String message, String errorText) {
+    /**
+     * @param id of the Response, 0 = Error, 1 = Warn, 2 = Info
+     * @param errorText of the Error if its id = 0
+     */
+    public ResponseJSON(int id, String errorText) {
         this.id = id;
-        this.message = message;
         this.errorText = errorText;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getErrorText() {
+        return errorText;
     }
 }
