@@ -1,5 +1,6 @@
 package de.pxnda.bot.util.config;
 
+import de.pxnda.bot.rest.CustomWebRequestLogger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
@@ -9,12 +10,7 @@ public class DiscordBotWebConfig {
 
     @Bean
     public CommonsRequestLoggingFilter requestLoggingFilter() {
-        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
-        filter.setIncludeQueryString(true);
-        filter.setIncludePayload(true);
-        filter.setMaxPayloadLength(10000);
-        filter.setIncludeHeaders(false);
-        return filter;
+        return new CustomWebRequestLogger();
     }
 
 }
