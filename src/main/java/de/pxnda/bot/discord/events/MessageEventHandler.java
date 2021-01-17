@@ -29,17 +29,7 @@ public class MessageEventHandler extends ListenerAdapter {
         List<String> contents = Arrays.asList(rawContent.split(" "));
         String command = contents.get(0).substring(1);
 
-        /*
-        if(!checkForUsePermission(e.getMember())){
-            e.getChannel().sendMessage("You cannot use me without the Role **Panda Master** (case-insensitive)").queue();
-            return;
-        }
-        */
-
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
-        String dateString = formatter.format(new Date());
-
-        BotApplication.Logger.log(dateString + " | " + "[" + command + "] issued by " + e.getAuthor().getName(), e.getGuild().getName());
+        BotApplication.Logger.log("[" + command + "] issued by " + e.getAuthor().getName(), e.getGuild().getName());
 
         switch (command) {
             case "join":
