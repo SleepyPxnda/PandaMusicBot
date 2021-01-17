@@ -1,9 +1,20 @@
 package de.pxnda.bot.util.models;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class SongForm {
+
+    @NotNull @NotBlank
     public String UserID;
+
+    @NotNull @NotBlank
     public String ServerID;
+
+    @NotNull @NotBlank
     public String SongURL;
+
+    @NotNull @NotBlank
     public String ChannelID;
 
     public String getChannelID() {
