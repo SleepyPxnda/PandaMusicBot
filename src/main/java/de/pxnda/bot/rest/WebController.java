@@ -3,6 +3,7 @@ package de.pxnda.bot.rest;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import de.pxnda.bot.BotApplication;
 import de.pxnda.bot.commands.PlayCommand;
+import de.pxnda.bot.util.models.ExtendedSongInformation;
 import de.pxnda.bot.util.models.SongForm;
 import de.pxnda.bot.util.models.SongListItem;
 import net.dv8tion.jda.api.entities.*;
@@ -45,7 +46,20 @@ public class WebController {
 
         BlockingQueue<AudioTrack> trackQueue = BotApplication.playerManager.getGuildMusicManager(guild).scheduler.getQueue();
 
-        trackQueue.forEach(song -> songList.add(new SongListItem(song.getInfo().title, song.getInfo().uri, song.getInfo().length, song.getInfo().author)));
+        for (AudioTrack song : trackQueue) {
+
+            ExtendedSongInformation information = song.getUserData(ExtendedSongInformation.class);
+
+            songList.add(
+                    new SongListItem(
+                            song.getInfo().title,
+                            song.getInfo().uri,
+                            song.getInfo().length,
+                            song.getInfo().author,
+                            information.getRequestorUsername()
+                    )
+            );
+        }
 
         return ResponseEntity.ok(songList);
     }

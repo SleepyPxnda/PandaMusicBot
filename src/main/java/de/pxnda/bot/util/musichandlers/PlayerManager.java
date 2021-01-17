@@ -7,6 +7,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import de.pxnda.bot.util.models.ExtendedSongInformation;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
@@ -50,6 +51,7 @@ public class PlayerManager {
             @Override
             public void trackLoaded(AudioTrack track) {
                 channel.sendMessage("\uD83D\uDFE2 - _" + track.getInfo().title + "_ - ➡️ **" + requester.getName()  + "**").queue();
+                track.setUserData(new ExtendedSongInformation(requester.getName() + requester.getDiscriminator()));
                 play(musicManager, track);
             }
 
