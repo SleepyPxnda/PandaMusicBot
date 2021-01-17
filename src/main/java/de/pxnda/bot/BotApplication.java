@@ -34,9 +34,10 @@ public class BotApplication {
         jda.getPresence().setPresence(Activity.listening("to *"), false);
 
         playerManager = new PlayerManager();
-
-        System.out.println("Bot started with prefix " + prefix);
         Logger = new ConsoleLogger();
+
+        Logger.systemLog("Bot started with prefix " + prefix);
+
 
         SpringApplication app = new SpringApplication(BotApplication.class);
         app.run(args);
