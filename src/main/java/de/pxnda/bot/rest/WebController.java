@@ -49,13 +49,16 @@ public class WebController {
         AudioTrack currentSong = manager.player.getPlayingTrack();
         BlockingQueue<AudioTrack> trackQueue = manager.scheduler.getQueue();
 
-        songList.add(new SongListItem(
-                currentSong.getInfo().title,
-                currentSong.getInfo().uri,
-                currentSong.getInfo().length,
-                currentSong.getInfo().author,
-                currentSong.getUserData(ExtendedSongInformation.class).getRequestorUsername()
-        ));
+        if(currentSong != null){
+            songList.add(new SongListItem(
+                    currentSong.getInfo().title,
+                    currentSong.getInfo().uri,
+                    currentSong.getInfo().length,
+                    currentSong.getInfo().author,
+                    currentSong.getUserData(ExtendedSongInformation.class).getRequestorUsername()
+            ));
+        }
+
 
         for (AudioTrack song : trackQueue) {
 
