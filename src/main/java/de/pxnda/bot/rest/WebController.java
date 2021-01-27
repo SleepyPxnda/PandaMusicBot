@@ -6,6 +6,7 @@ import de.pxnda.bot.commands.PlayCommand;
 import de.pxnda.bot.util.models.ExtendedSongInformation;
 import de.pxnda.bot.util.models.SongForm;
 import de.pxnda.bot.util.models.SongListItem;
+import de.pxnda.bot.util.musichandlers.GuildMusicManager;
 import net.dv8tion.jda.api.entities.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -41,10 +41,21 @@ public class WebController {
     @GetMapping("/getSongQueue/{guildId}")
     public ResponseEntity<List<SongListItem>> getSongList(@Valid@PathVariable(value = "guildId") String guildId) {
         Guild guild = BotApplication.jda.getGuildById(guildId);
+        GuildMusicManager manager = BotApplication.playerManager.getGuildMusicManager(guild);
 
         List<SongListItem> songList = new ArrayList<>();
 
-        BlockingQueue<AudioTrack> trackQueue = BotApplication.playerManager.getGuildMusicManager(guild).scheduler.getQueue();
+
+        AudioTrack currentSong = manager.player.getPlayingTrack();
+        BlockingQueue<AudioTrack> trackQueue = manager.scheduler.getQueue();
+
+        songList.add(new SongListItem(
+                currentSong.getInfo().title,
+                currentSong.getInfo().uri,
+                currentSong.getInfo().length,
+                currentSong.getInfo().author,
+                currentSong.getUserData(ExtendedSongInformation.class).getRequestorUsername()
+        ));
 
         for (AudioTrack song : trackQueue) {
 
