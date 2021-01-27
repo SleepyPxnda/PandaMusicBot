@@ -51,7 +51,7 @@ public class PlayerManager {
             @Override
             public void trackLoaded(AudioTrack track) {
                 channel.sendMessage("\uD83D\uDFE2 - _" + track.getInfo().title + "_ - ➡️ **" + requester.getName()  + "**").queue();
-                track.setUserData(new ExtendedSongInformation(requester.getName() + requester.getDiscriminator()));
+                track.setUserData(new ExtendedSongInformation(requester.getName()  + "#" + requester.getDiscriminator()));
                 play(musicManager, track);
             }
 
