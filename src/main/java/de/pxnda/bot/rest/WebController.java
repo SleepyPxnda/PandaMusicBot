@@ -25,7 +25,7 @@ import java.util.concurrent.BlockingQueue;
 @RestController
 public class WebController {
 
-    @PostMapping("/addSong")
+    @PostMapping("/song/add")
     public ResponseEntity<String> queueSong(@Valid @RequestBody SongForm songForm ){
 
         final Guild guild = BotApplication.jda.getGuildById(songForm.ServerID);
@@ -38,7 +38,7 @@ public class WebController {
         return ResponseEntity.ok("Song added to Queue");
     }
 
-    @GetMapping("/getSongQueue/{guildId}")
+    @GetMapping("/songs/{guildId}")
     public ResponseEntity<List<SongListItem>> getSongList(@Valid@PathVariable(value = "guildId") String guildId) {
         Guild guild = BotApplication.jda.getGuildById(guildId);
         GuildMusicManager manager = BotApplication.playerManager.getGuildMusicManager(guild);
@@ -48,9 +48,10 @@ public class WebController {
 
         AudioTrack currentSong = manager.player.getPlayingTrack();
         BlockingQueue<AudioTrack> trackQueue = manager.scheduler.getQueue();
-
+        int index = 0;
         if(currentSong != null){
             songList.add(new SongListItem(
+                    index++,
                     currentSong.getInfo().title,
                     currentSong.getInfo().uri,
                     currentSong.getInfo().length,
@@ -59,13 +60,13 @@ public class WebController {
             ));
         }
 
-
         for (AudioTrack song : trackQueue) {
 
             ExtendedSongInformation information = song.getUserData(ExtendedSongInformation.class);
 
             songList.add(
                     new SongListItem(
+                            index++,
                             song.getInfo().title,
                             song.getInfo().uri,
                             song.getInfo().length,
@@ -77,7 +78,6 @@ public class WebController {
 
         return ResponseEntity.ok(songList);
     }
-
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)

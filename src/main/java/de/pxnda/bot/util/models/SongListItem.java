@@ -2,13 +2,15 @@ package de.pxnda.bot.util.models;
 
 public class SongListItem {
 
+    private int Id;
     private String Name;
     private String Url;
     private long Length;
     private String Author;
     private String Requestor;
 
-    public SongListItem(String name, String url, long length, String author, String requestor) {
+    public SongListItem(int id, String name, String url, long length, String author, String requestor) {
+        Id = id;
         Name = name;
         Url = url;
         Length = length;
@@ -36,4 +38,7 @@ public class SongListItem {
         return Requestor;
     }
 
+    public int getId() {
+        return Id;
+    }
 }
