@@ -21,19 +21,28 @@ public class HelpCommand implements ICommand {
 
         embed.setAuthor("Botprefix ist [ " + BotApplication.prefix + " ]");
 
-        embed.addField("join", "Bot joins your Voicechannel", true);
-        embed.addField("leave", "Bot leaves your Voicehannel", true);
-        embed.addField("play", "Bot starts playing your song " + BotApplication.prefix + "play (songurl)", true);
-        embed.addField("queue", "Shows the current Songqueue", true);
-        embed.addField("np", "Shows the Song currently playing", true);
-        embed.addField("help", "Shows this Windows", true);
-        embed.addField("clear", "Clears the entire queue", true);
-        embed.addField("skip", "Skips the current Song ", true);
-        embed.addField("forward [number]", "Skips the given amount of Songs ", true);
-        embed.addField("delete [index]", "Deletes Song at given Index (pls use Index Numbers from " + BotApplication.prefix + "queue) ", true);
-        embed.addField("loop", "Enables / Disables the Loop of the Current Song ", true);
+        //General Commands
+        embed.addField("join", "bot joins your voicechannel", false);
+        embed.addField("leave", "bot leaves your voicehannel", false);
+        embed.addField("help", "Shows this window", false);
 
-        embed.setFooter("Built with \\U+2665");
+        //Song Commands
+        embed.addField("play", "bot starts playing your song " + BotApplication.prefix + "play (songurl)", false);
+        embed.addField("np", "shows the Song currently playing", false);
+        embed.addField("pause", "pauses the current song", false);
+        embed.addField("resume", "resumes the song if the bot was paused", false);
+        embed.addField("skip", "skips the current song ", false);
+
+        //Queue Commands
+        embed.addField("queue", "shows the current songqueue", false);
+        embed.addField("clear", "clears the entire queue", false);
+
+        //Advanced Queue Commands
+        embed.addField("forward [number]", "Skips the given amount of songs ", false);
+        embed.addField("delete [index]", "Deletes song at given index (pls use index numbers from " + BotApplication.prefix + "queue) ", false);
+        embed.addField("loop", "Enables / Disables the loop of the current song ", false);
+
+        embed.setFooter("Pandas > everything");
 
         channel.sendMessage(embed.build()).queue();
 
